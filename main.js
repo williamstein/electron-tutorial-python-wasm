@@ -1,9 +1,11 @@
 console.log("hello from main");
 
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const { join } = require("path");
 const debug = require("debug");
 const log = debug("main");
+
+const python = require("./python.js");
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -27,13 +29,24 @@ app.on("window-all-closed", () => {
 
 async function main() {
   await app.whenReady();
-  createWindow();
 
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }
   });
+
+  ipcMain.handle("python:version", python.version);
+  ipcMain.handle(
+    "python:exec",
+    async (_, ...args) => await python.exec(...args)
+  );
+  ipcMain.handle(
+    "python:repr",
+    async (_, ...args) => await python.repr(...args)
+  );
+
+  createWindow();
 }
 
 main();

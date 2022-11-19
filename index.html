@@ -7,12 +7,18 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     />
-    <title>Hello From CoCalc Native!</title>
+    <title>Hello From CoWasm!</title>
   </head>
   <body>
-    <h1>Hello From CoCalc Native!</h1>
+    <h1>Hello From CoWasm -- we import everything from Pandas</h1>
     We are using Node.js <span id="node-version"></span>, Chromium
-    <span id="chrome-version"></span>, and Electron
-    <span id="electron-version"></span>.
+    <span id="chrome-version"></span>, Electron
+    <span id="electron-version"></span>, and this Python:
+    <br />
+    <pre id="python-version"></pre>
+
+    <pre id="pandas-versions">Importing pandas...</pre>
+
+    <script src="./renderer.js"></script>
   </body>
 </html>
