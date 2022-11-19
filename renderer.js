@@ -7,11 +7,13 @@ async function main() {
 
   const t0 = new Date().valueOf();
   await window.electronAPI.pythonExec(`
-import pandas, json
+import pandas, json, os, sys
 from contextlib import redirect_stdout
 import io
 f = io.StringIO()
 with redirect_stdout(f):
+    print("PYTHONHOME = ", os.environ.get('PYTHONHOME'))
+    print("sys.path = ", sys.path)
     pandas.show_versions()
 s = f.getvalue()
 `);
